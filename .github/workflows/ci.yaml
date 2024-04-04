@@ -1,0 +1,25 @@
+name: CS1660 Project 5
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+
+    - name: Setup Google Cloud
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: download-403601
+        export_default_credentials: true
+
+    - name: Upload index.html to Cloud Storage
+      run: |
+        gsutil cp ./index.html gs://justanotherwebsitebucketpleaseletmenameitthisalexwitkowski/index.html

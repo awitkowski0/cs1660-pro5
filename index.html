@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>God I hate HTML</title>
+    <style>
+        body {
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+        }
+
+        .letter {
+            position: absolute;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        function randomLetter() {
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            return alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+        }
+
+        function createLetter() {
+            const letterElement = document.createElement('div');
+            letterElement.classList.add('letter');
+            letterElement.textContent = randomLetter();
+            document.body.appendChild(letterElement);
+
+            const x = Math.floor(Math.random() * window.innerWidth);
+            const y = Math.floor(Math.random() * window.innerHeight);
+            letterElement.style.left = `${x}px`;
+            letterElement.style.top = `${y}px`;
+        }
+
+        setInterval(createLetter, 1);
+
+    </script>
+</body>
+
+</html>
