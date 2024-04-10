@@ -1,25 +1,35 @@
-name: CS1660 Project 5
+name: Static Site
 
 on:
   push:
     branches:
       - main
+      - gha-service-account
+  pull_request:
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: '0'
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup Google Cloud
-      uses: google-github-actions/setup-gcloud@master
-      with:
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        project_id: download-403601
-        export_default_credentials: true
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: 'projects/143616246873/locations/global/workloadIdentityPools/gh-actions-pool/providers/gh-actions-provider'
+          service_account: 'github-actions-service-account@download-403601.iam.gserviceaccount.com' # Adjusted to your new service account
 
-    - name: Upload index.html to Cloud Storage
-      run: |
-        gsutil cp ./index.html gs://justanotherwebsitebucketpleaseletmenameitthisalexwitkowski/index.html
+      - name: Upload files to Google Cloud Storage
+        uses: google-github-actions/upload-cloud-storage@v1
+        with:
+          path: '.'
+          destination: 'justanotherwebsitebucketpleaseletmenameitthisalexwitkowski'
+          parent: false
