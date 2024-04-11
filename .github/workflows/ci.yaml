@@ -34,4 +34,6 @@ jobs:
           path: '.'
           destination: 'justanotherwebsitebucketpleaseletmenameitthisalexwitkowski'
           parent: false
+          workload_identity_provider: 'projects/525035337232/locations/global/workloadIdentityPools/justanotheridentitypool/providers/github'
+          service_account: 'github-actions-service-account@download-403601.iam.gserviceaccount.com'
 
