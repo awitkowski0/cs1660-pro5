@@ -25,7 +25,7 @@ jobs:
       - id: 'auth'
         uses: google-github-actions/auth@v2
         with:
-          project_id: '525035337232'
+          project_id: 'download-403601'
           workload_identity_provider: 'projects/525035337232/locations/global/workloadIdentityPools/justanotheridentitypool/providers/github'
           service_account: 'new-service-account@download-403601.iam.gserviceaccount.com'
 
