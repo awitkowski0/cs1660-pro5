@@ -23,8 +23,9 @@ jobs:
           fetch-depth: 0
 
       - id: 'auth'
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
+          project_id: '525035337232'
           workload_identity_provider: 'projects/525035337232/locations/global/workloadIdentityPools/justanotheridentitypool/providers/github'
           service_account: 'new-service-account@download-403601.iam.gserviceaccount.com'
 
